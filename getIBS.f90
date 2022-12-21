@@ -3,17 +3,18 @@
 	subroutine getrates(alfx,alfy,alfp,bx,bxp,by,byp,dxin,dxp,dy,dyp,ibstype)
 	!parameter(pi=3.141592,clight=2.998e8,qe=1.602e-19)
 	!common/parms/pnum,qatom,aatom,epsx,epsy,gamma,sigs,dponp,coulomb,r0
-	include 'trackit8az_c.f90'
+	!include 'trackit8az_c.f90'
+	include 'ecoolm2h4_c.f90'
 ! alfx,alfy,alfp are emittance growth rates for bunched beams in sec^{-1}
 ! first get some other parameters
 	gamma = gamma0
-	beta = sqrt(1-1/gamma**2)
+	beta = dsqrt(1-1/gamma**2)
 	dx = dxin
 
 ! vertical dispersion is zero
-!   write(6,*) '  gamma*sig(thetax) =',sqrt(epsx/bx)*gamma
-	sigx = sqrt(bx*epsx + dponp**2 * dx**2 )
-	sigy = sqrt(by*epsy)
+!   write(6,*) '  gamma*sig(thetax) =',dsqrt(epsx/bx)*gamma
+	sigx = dsqrt(bx*epsx + dponp**2 * dx**2 )
+	sigy = dsqrt(by*epsy)
 !      write(6,*)'sigx,sigy',sigx,sigy
 !      write(6,*)'95% normalized emittances ',sigx*sigx*6*gamma/bx,
 !     : sigy*sigy*6*gamma/by
@@ -25,7 +26,7 @@
 	rhomin = r0/sigurest2
 	rhomax = 2*sigy
 
-	rhomax2 = sqrt(sigurest2*sigx*sigy*sigs/(pnum*r0))
+	rhomax2 = dsqrt(sigurest2*sigx*sigy*sigs/(pnum*r0))
 	if(rhomax2.lt.rhomax)rhomax=rhomax2
 
 	coulomb = log(rhomax/rhomin)
@@ -41,7 +42,7 @@
 	if(ibstype.eq.2)phi=0.
 	if(ibstype.eq.3)then
 	dx2 = dx*dx + (bx*dpx-0.5*bxp*dx)**2
-	dx = sqrt(dx2)
+	dx = dsqrt(dx2)
 	phi=0
 	endif
 
@@ -52,7 +53,7 @@
 	a2 = 0.5*(ax-as*gamma**2)
 ! eigenvalues of eq 2 in Nagaitsev 2005
 	flam1 = ay
-	disc = sqrt(a2*a2 + (gamma*ax*phi)**2)
+	disc = dsqrt(a2*a2 + (gamma*ax*phi)**2)
 	flam2 = a1+disc
 	flam3 = a1-disc
 ! eq 25 thru 27
@@ -88,7 +89,8 @@
 	    
 	!parameter(pi=3.141592,clight=2.998e8,qe=1.602e-19)
 	!common/parms/pnum,qatom,aatom,epsx,epsy,gamma,sigs,dponp,coulomb,r0
-	include 'trackit8az_c.f90'
+	!include 'trackit8az_c.f90'
+	include 'ecoolm2h4_c.f90'
 	!real(8)::a(2,2),b(2,2),c(2,2)
 	real(8),dimension(3,3)::Lh,Lv,Lp,L
 	real(8),dimension(3,3)::II,LL,LB,KK,TT,LLh,LLv,LLp
@@ -98,11 +100,11 @@
 
 	stepLam = 45000.
 	lamLimit = 4.0
-	beta = sqrt(1-1/gamma**2)
+	beta = dsqrt(1-1/gamma**2)
 	dx = dxin
-!write(6,*) '  gamma*sig(thetax) =',sqrt(epsx/bx)*gamma
-	sigx = sqrt(bx*epsx + dponp**2 * dx**2 )
-	sigy = sqrt(by*epsy + dponp**2 * dy**2)
+!write(6,*) '  gamma*sig(thetax) =',dsqrt(epsx/bx)*gamma
+	sigx = dsqrt(bx*epsx + dponp**2 * dx**2 )
+	sigy = dsqrt(by*epsy + dponp**2 * dy**2)
 
 !23456
 	sigurest2 = dponp**2 + gamma*gamma*(epsx/bx +epsy/by)
@@ -111,7 +113,7 @@
 	rhomin = r0/sigurest2
 	rhomax = 2*sigy
 
-	rhomax2 = sqrt(sigurest2*sigx*sigy*sigs/(pnum*r0))
+	rhomax2 = dsqrt(sigurest2*sigx*sigy*sigs/(pnum*r0))
 	if(rhomax2.lt.rhomax)rhomax=rhomax2
 
 	coulomb = log(rhomax/rhomin)
@@ -178,7 +180,7 @@
 				    ame = 0.0
 				end if
 
-				KK(i,j) = KK(i,j) + sqrt(lambda/det)*(Tr0 * ame - 3.0*LB(i,j))
+				KK(i,j) = KK(i,j) + dsqrt(lambda/det)*(Tr0 * ame - 3.0*LB(i,j))
 			end do
 		end do
         
@@ -202,7 +204,7 @@
 	end do
 
 	
-   ! write(*,*) bx,alfx,alfy,alfp    
+   !write(*,*) bx,alfx,alfy,alfp    
         
 	!do k=0,stepLam
  !       lambda = uplimit * real(k) / stepLam  !stepLam is the total integral steps
@@ -229,9 +231,9 @@
  !       Trv1 = LLv(1,1) + LLv(2,2) + LLv(3,3)
  !       Trp1 = LLp(1,1) + LLp(2,2) + LLp(3,3)
  !       
- !       alfx = coeffn * sqrt(lambda/det) * (Trh * Tr0 - 3. * Trh1) * uplimit/stepLam
- !       alfy = coeffn * sqrt(lambda/det) * (Trv * Tr0 - 3. * Trv1) * uplimit/stepLam
- !       alfp = coeffn * sqrt(lambda/det) * (Trp * Tr0 - 3. * Trp1) * uplimit/stepLam 
+ !       alfx = coeffn * dsqrt(lambda/det) * (Trh * Tr0 - 3. * Trh1) * uplimit/stepLam
+ !       alfy = coeffn * dsqrt(lambda/det) * (Trv * Tr0 - 3. * Trv1) * uplimit/stepLam
+ !       alfp = coeffn * dsqrt(lambda/det) * (Trp * Tr0 - 3. * Trp1) * uplimit/stepLam 
 	!	
  !       write(*,*) alfx,alfy,alfp
 	!end do
@@ -248,23 +250,24 @@
 
 	!parameter(pi=3.141592,clight=2.998e8,qe=1.602e-19)
 	!common/parms/pnum,qatom,aatom,epsx,epsy,gamma,sigs,dponp,coulomb,r0
-	include 'trackit8az_c.f90'
+	!include 'trackit8az_c.f90'
+	include 'ecoolm2h4_c.f90'
 	real(8),dimension(3,3):: BBx,BBy,BBp,GG,GGi,LL,LLi,Si,Si1
 	real(8),dimension(3,3):: RR,psi,MM,MM1,MM2,MM3
 	real(8),dimension(3):: DD
 	real(8) rx,ry,rp
-
+	
 	gamma = gamma0
 	r0 = (qatom**2/aatom)*1.54e-18
 
 	rx = 0.0
 	ry = 0.0
 	rp = 0.0
-	beta = sqrt(1.-1./gamma**2)
+	beta = dsqrt(1.-1./gamma**2)
 	dx = dxin
-!write(6,*) '  gamma*sig(thetax) =',sqrt(epsx/bx)*gamma
-	sigx = sqrt(bx*epsx + dponp**2 * dx**2 )
-	sigy = sqrt(by*epsy + dponp**2 * dy**2)
+!write(6,*) '  gamma*sig(thetax) =',dsqrt(epsx/bx)*gamma
+	sigx = dsqrt(bx*epsx + dponp**2 * dx**2 )
+	sigy = dsqrt(by*epsy + dponp**2 * dy**2)
     
 !23456
 	sigurest2 = dponp**2 + gamma*gamma*(epsx/bx +epsy/by)
@@ -307,15 +310,14 @@
 	LL(3,1) = LL(1,3)
 	LL(3,2) = LL(2,3)
 	LL(3,3) = 1.0/dponp/dponp + Ax/epsx + Ay/epsy
-
+	     
 
 	call M33INV(LL,LLi,OK_FLAG)
 	Si1 = matmul(LLi,GG)
-
 	Si = matmul(transpose(GG),Si1)
 	call jacobi_eigenvalue(3,Si,50000, RR, DD, it_num, rot_num)
 !call Jacobi(Si,RR,1.E-19,3)
-   	
+   	 
 	qq = DD(1) + DD(2) + DD(3)
 	dd1 = DD(1)
 	dd2 = DD(2)
@@ -333,7 +335,7 @@
 	psi(1,1) = psi1
 	psi(2,2) = psi2
 	psi(3,3) = psi3
-     
+    
 	call M33INV(GG,GGi,OK_FLAG)
 
 	MM1 = matmul(transpose(RR),GGi)
@@ -342,7 +344,7 @@
 	MM = matmul(transpose(GGi),MM3)
 
 
-	coe = 1.0 / sqrt(ff * bx * by)
+	coe = 1.0 / dsqrt(ff * bx * by)
 	do i=1,3
 		do j=1,3
 			rx = rx + coe * BBx(i,j) * MM(i,j) 
@@ -351,19 +353,20 @@
 		end do
 	end do
   
+  	
 !Naigatsev coulomb log	
 	rhomin = r0/qq/(gamma**2*beta**2)
 	rhomax = sigx
 	if (rhomax.gt.sigy) rhomax = sigy
 	if (rhomax.gt.gamma*sigs) rhomax = gamma*sigs     
 	coulomb = log(rhomax/rhomin)
+    !write(*,*) coulomb
 
-
-	coeffn = clight*r0**2*pnum/(12.0*pi*beta**3*gamma**5*sqrt(epsx)*sqrt(epsy)*sigs)
+	coeffn = clight*r0**2*pnum/(12.0*pi*beta**3*gamma**5*dsqrt(epsx)*dsqrt(epsy)*sigs)
 	alfx = coeffn * coulomb * rx / epsx
 	alfy = coeffn * coulomb * ry / epsy
 	alfp = coeffn * coulomb * rp / sigs / dponp
-	!write(*,*) coulomb
+	 !write(*,*) "rr:", alfx,alfy,alfp
 	end
 
 	
@@ -397,9 +400,9 @@
 	SUM = 0.0
 	FAC = 1.0
 	
-55	SQRTX = SQRT(XT)
-	SQRTY = SQRT(YT)
-	SQRTZ = SQRT(ZT) 
+55	SQRTX = dsqrt(XT)
+	SQRTY = dsqrt(YT)
+	SQRTZ = dsqrt(ZT) 
 
 		
 	ALAMB = SQRTX * (SQRTY + SQRTZ) +SQRTY*SQRTZ
@@ -427,7 +430,7 @@
 	
 	RD1 = 1.0 + ED * (-C1 + C5*ED - C6*DETZ*EE)
 	RD2 = C2*EE + DETZ*(-C3*EC + DETZ*C4*EA)
-	RSD = 3.0 * SUM + FAC * (RD1 + DETZ*RD2) / (AVE * SQRT(AVE))
+	RSD = 3.0 * SUM + FAC * (RD1 + DETZ*RD2) / (AVE * dsqrt(AVE))
 	END	FUNCTION
 
     
@@ -589,7 +592,7 @@
 			end do
 		end do
 
-    	thresh = sqrt ( thresh ) / real ( 4 * n, kind = 8 )
+    	thresh = dsqrt ( thresh ) / real ( 4 * n, kind = 8 )
 
 		if ( thresh == 0.0D+00 ) then
 			exit 
@@ -618,13 +621,13 @@
 		        		t = a(p,q) / h
 					else
 		        		theta = 0.5D+00 * h / a(p,q)
-		        		t = 1.0D+00 / ( abs ( theta ) + sqrt ( 1.0D+00 + theta * theta ) )
+		        		t = 1.0D+00 / ( abs ( theta ) + dsqrt ( 1.0D+00 + theta * theta ) )
 						if ( theta < 0.0D+00 ) then 
 							t = - t
 		        	end if
 				end if
 
-				c = 1.0D+00 / sqrt ( 1.0D+00 + t * t )
+				c = 1.0D+00 / dsqrt ( 1.0D+00 + t * t )
 				s = t * c
 				tau = s / ( 1.0D+00 + c )
 				h = t * a(p,q)
@@ -878,7 +881,7 @@
 !
 !
 !          Check: RD(X,Y,Z) + RD(Y,Z,X) + RD(Z,X,Y)
-!          = 3 /  SQRT(X * Y * Z), where X, Y, and Z are positive.
+!          = 3 /  dsqrt(X * Y * Z), where X, Y, and Z are positive.
 !
 !
 !          On Input:
@@ -1083,9 +1086,9 @@
 	ZNDEV = (MU-ZN)/MU
 	EPSLON = MAX(ABS(XNDEV), ABS(YNDEV), ABS(ZNDEV))
 	IF (EPSLON.LT.ERRTOL) GO TO 40
-	XNROOT = SQRT(XN)
-	YNROOT = SQRT(YN)
-	ZNROOT = SQRT(ZN)
+	XNROOT = dsqrt(XN)
+	YNROOT = dsqrt(YN)
+	ZNROOT = dsqrt(ZN)
 	LAMDA = XNROOT*(YNROOT+ZNROOT) + YNROOT*ZNROOT
 	SIGMA = SIGMA + POWER4/(ZNROOT*(ZN+LAMDA))
 	POWER4 = POWER4*0.250E0					
@@ -1101,9 +1104,22 @@
 	EF = ED + EC + EC
 	S1 = ED*(-C1+0.250E0*C3*ED-1.50E0*C4*ZNDEV*EF)
 	S2 = ZNDEV*(C2*EF+ZNDEV*(-C3*EC+ZNDEV*C4*EA))
-	RD = 3.0E0*SIGMA + POWER4*(1.0E0+S1+S2)/(MU* SQRT(MU))
+	RD = 3.0E0*SIGMA + POWER4*(1.0E0+S1+S2)/(MU* dsqrt(MU))
 !
 	RETURN
-	END
+    END
 
 
+    
+    function gauss_random(average,sigma)
+		real(8) gauss_random1,gauss_random2
+		real(8) average,sigma,mm,nn,w
+2		call random_number(xsl)
+		mm = 2.0*xsl-1.0
+		call random_number(xsl)
+		nn = 2.0*xsl-1.0
+		w = mm*mm + nn*nn
+		if(w.gt.1.0) goto 2
+		if(w.lt.3.0e-7) goto 2
+		gauss_random = mm*sqrt((-2.0*log(w))/w)*sigma+average
+	end
