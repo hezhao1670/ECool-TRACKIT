@@ -1,0 +1,41 @@
+30000 5000 300  1 19042727   nturns,ndim,nwrite,nperturn,iseed
+2.046  161.0  1.128825 3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
+2.82  4.67e-3  1.818  5.816e-3  2. 100 100 tuney,ampy,tunex,ampx,chrom,nresamp,nresamp2
+5.0e8  56.   26.  3.  5.0e-8   5.0e-4  1  pnumber,aatom,qatom,power,tauhat,coastbdpp,nturnon
+1  1   iichoice,iechoice
+1. 1.  1.  0.03  9.3e-7 fracibstot, fracibsx ,fracecool,dqmin,thib
+20.  1e-3  1e-3 ebeams,ebeamx, ebeamy
+1  0  0.5e-3 0.5e-3 4.e-4 18.e-7  3.4  9 idosc,idoecool,sigurestx,siguresty,sigurestt,qbeamcool,slencool,speedfact
+0  0  10. 10. 1  dispxe,dispxh,betaxcool,betaycool,nslice
+12  4.0  1.0e6	betamax,DA, plifetime
+-6.0e-3  0.0e-4  0.0e-4  xoff, xpoff, uoff
+=============== pulsed i-injection (iichoice=3) ==================
+0.25e-6  0.5      pulseiW, gapit  
+0.3e-6	      spareW
+=============== pulsed e-beam (iechoice=1) ==================
+0.3  1.5   0.5  1e-5  tie(A), aeb(cm), temet(eV), temel(eV)
+1     0.1   1.0  nedis(1-uni;2-elli;3-para;4-cossq;5-gau;6-holl), hollowsig(cm), hollowaeb(cm)
+0.1   1e-5    0.    Bg(T), Berror, feshift
+9.25e-7   1.0   0.e-9   0.e-9   pulseW, pulseN, riseW, gapW
+=============== ebeam tuning ======================
+0    ntchoice (off-square-saw-tri-sin)	#tuning choice
+0.e0  -4.0e-4  4.e-4    fetune,eklo,ekhi	#energy tuning
+800.e3  -2.0e-8  2.e-8    fptune,eplo,ephi	#position tuning  
+
+
+
+
+====== csre cooling (120MeV/u Fe15+) =====
+
+carbon bunch
+n=5e7
+emitx=3e-6m
+emity=3e-6m
+dp/p=6.0e-4
+sigs= 0.0?6m
+beta_ave = 11.2757/7.2692
+
+ebeamx = sqrt(emitt_xi*beta_eip)
+ebeamy = sqrt(emitt_yi*beta_eip)
+sigurestx = sqrt(emitt_xi/beta_eip)*gamma0
+siguresty = sqrt(emitt_yi/beta_eip)*gamma0
