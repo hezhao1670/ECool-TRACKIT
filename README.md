@@ -45,8 +45,8 @@ Phys. Rev. Accel. Beams 24, 083502
 	2) Prepare the optics file and the input file, and then run the exe file.
 
 
-# File explanation
-## The input file (.in) looks like:
+# Input files explanation
+## The main input file (.in) looks like:
 	400000 6000 1000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
 	2.0402  128.8  1.322  3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
 	2.898  3.76e-3  1.679  4.94e-3  2. 100 100 tuney,ampy,tunex,ampx,chrom,nresamp,nresamp2
@@ -168,6 +168,9 @@ Phys. Rev. Accel. Beams 24, 083502
 	The first two parameters (for example: 3011 2) define the length of the lattice data and the first row of the data.
 	Data format:  S(m)    BETX(m)    ALFX    BETY(m)    ALFY    DX(m)    DPX    DY(m)    DPY
 
+
+# Output files explanation
+
 ## The output “elbeam.dat” is beam distribution of e-beam based on the beam dis choice
 	1-aeb = ebeam radius
 	2-elsdis(i)*ple  = density 
@@ -186,7 +189,87 @@ Phys. Rev. Accel. Beams 24, 083502
 	8-float(np) = number of remaining macro-particles
 	9-float(ntloss) = number of particle lost in transverse
 
+## The output files ini.full/tran.full: give the initial and final macro-particle coordinates 
+	1-x(k) = x [unit=m]
+	2-px(k) = px
+	3-y(k) = y [unit=m]
+	4-py(k) = py
+	5-t(k) = delta t [unit=s]
+	6-pt(k) = dpp
+	7-9 = tune stuff (testing..)
 
 
 
+## The output file fort.66: give the IBS results
+	1-kturns: number of turns
+	2-rmsx2: sigma_x [unit=m]
+	3-rmsx: sigma_y [unit=m]
+	4-rmsg/(gamma0*beta**2): dpp_i
+	5-alfax20: horizontal ibs rate  [unit=1/s, emitt.]
+	6-alfax0 vertical ibs rate [unit=1/s, emitt.]
+	7- alfap0: long. Ibs rate [unit=1/s, dpp^2]
+	8-10 - hatkappax2,hatkappax,hatkappap: friction force parameters
+
+
+## The other outputs are used for checking the code, no physical meaning. 
+
+
+
+# Examples
+## dispersive cooling on 275GeV proton beam (old version with no magnetized cooling)
+
+	150000 1500 1000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
+	23.5  3833. 293.2 -10.e6 2520 -20.e6 7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
+	29.28 0.179e-3  28.29 .447e-3 2. 100 100 tuney,ampy,tunex,ampx,chrom,nresamp,nresamp2
+	0.69e11 1. 1.  3.  1.1e-9  1  pnumber,aatom,qatom,power,tauhat,nturnon
+	1. 1.  0.0  10.e-9 fracibstot, fracibsx, dqmin, thib
+	0.12 1.79e-3 2.22e-3 ebeams,ebeamx, ebeamy
+	0 1 3.44e-3 2.38e-3 8.9e-4 48.e-9 170 5000. idosc,idoecool,sigurestx,siguresty,sigurestt,qbeamcool,slencool,speedfact
+	2. 2.  100. 100. 7  dispxe,dispxh,betaxcool,betaycool,nslice
+	2000.0  7	betamax,DA
+	0.0e-3  0.0e-3 xoff, uoff
+
+
+## Cooling of 300MeV/u C6+ beam on CSRe 
+
+	400000 6000 1000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
+	2.0402  128.8  1.322  3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
+	2.898  3.76e-3  1.679  4.94e-3  2. 100 100 tuney,ampy,tunex,ampx,chrom,nresamp,nresamp2
+	5.0e7  12.   6.  3.  5.0e-8   4.8e-4  1  pnumber,aatom,qatom,power,tauhat,coastbdpp,nturnon
+	1  1   iichoice,iechoice
+	1. 1.  1.  0.00  70.e-8 fracibstot, fracibsx ,fracecool,dqmin,thib
+	20.  1e-3  1e-3 ebeams,ebeamx, ebeamy
+	0 1 0.5e-3 0.5e-3 4.e-4 18.e-7 3.4 380 idosc,idoecool,sigurestx,siguresty,sigurestt,qbeamcool,slencool,speedfact
+	0 0  10. 10. 1  dispxe,dispxh,betaxcool,betaycool,nslice
+	8.0  40.5	betamax,DA
+	0.0e-3  0.0e-4 xoff, uoff
+	=============== pulsed e-beam (iechoice=1) ==================
+	0.1  1.0   0.5  1e-5  tie(A), aeb(cm), temet(eV), temel(eV)
+	0.178   5e-5    0.    Bg(T), Berror, feshift
+	0.6568e-6   1.0   0.e-9   0e-9  0.   pulseW, pulseN, riseW, gapW, vkick
+	=============== ebeam energy tuning ======================
+	1.e0  -4.0e-4  4.e-4   0  fetune,eklo,ekhi,ntchoice(square-saw-tri-sin)
+	
+## Cooling and multi-injection of 800MeV/u U92+ beam on SRing 
+
+	3700000 3000 3000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
+	3.55  266.497   1.85883  3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
+	3.64  3.41e-3  4.38  4.4e-3  0. 100 100 tuney,ampy,tunex,ampx,chrom,nresamp,nresamp2
+	5.0e10  238.   92.  3.  5.0e-7  4.0e-4  1  pnumber,aatom,qatom,power,tauhat,coastbdpp,nturnon
+	3  1   iichoice,iechoice
+	1. 1.  1.  0.00  1.06e-6 fracibstot, fracibsx ,fracecool,dqmin,thib
+	20.  1e-3  1e-3 ebeams,ebeamx, ebeamy
+	0  1 0.5e-3 0.5e-3 4.e-4 18.e-7  7.0  7 idosc,idoecool,sigurestx,siguresty,sigurestt,qbeamcool,slencool,speedfact
+	0  0  25. 25. 1  dispxe,dispxh,betaxcool,betaycool,nslice
+	12  8.0	betamax,DA
+	0.0e-3  0.0e-4  xoff, uoff
+	=============== pulsed i-injection (iichoice=3) ==================
+	0.25e-6  1.5      pulseiW, gapit  
+	0.3e-6	      spareW
+	=============== pulsed e-beam (iechoice=1) ==================
+	2.0  2.0   0.5  1e-5  tie(A), aeb(cm), temet(eV), temel(eV)
+	0.15   1e-5    0.    Bg(T), Berror, feshift
+	0.7e-6   1.0   10.e-9   0.e-9   pulseW, pulseN, riseW, gapW
+	=============== ebeam energy tuning ======================
+	0.e0  -4.0e-4  4.e-4   0  fetune,eklo,ekhi,ntchoice(square-saw-tri-sin)
 
