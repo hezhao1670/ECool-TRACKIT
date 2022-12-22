@@ -216,7 +216,7 @@ Phys. Rev. Accel. Beams 24, 083502
 
 
 # Examples
-## dispersive cooling on 275GeV proton beam (old version with no magnetized cooling)
+## Ex.1-Dispersive cooling on 275GeV proton beam (old version with no magnetized cooling)
 
 	150000 1500 1000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
 	23.5  3833. 293.2 -10.e6 2520 -20.e6 7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
@@ -230,7 +230,7 @@ Phys. Rev. Accel. Beams 24, 083502
 	0.0e-3  0.0e-3 xoff, uoff
 
 
-## Cooling of 300MeV/u C6+ beam on CSRe 
+## Ex.2-Cooling of 300MeV/u C6+ beam on CSRe 
 
 	400000 6000 1000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
 	2.0402  128.8  1.322  3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
@@ -250,7 +250,7 @@ Phys. Rev. Accel. Beams 24, 083502
 	=============== ebeam energy tuning ======================
 	1.e0  -4.0e-4  4.e-4   0  fetune,eklo,ekhi,ntchoice(square-saw-tri-sin)
 	
-## Cooling and multi-injection of 800MeV/u U92+ beam on SRing 
+## Ex.3-Cooling and multi-injection of 800MeV/u U92+ beam on SRing 
 
 	3700000 3000 3000  1 19042727   nturns,ndim,nwrite,nperturn,iseed
 	3.55  266.497   1.85883  3.e3  1  -0.e6  7560   gammat,circ,gamma0,vrf,nharm,vrf2,nharm2
