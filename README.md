@@ -15,8 +15,8 @@ electron cooling simulation (Multi-particles tracking code)
 		
 		
 # Publications:
-Phys. Rev. Accel. Beams 23, 074201
-Phys. Rev. Accel. Beams 24, 083502
+	Phys. Rev. Accel. Beams 23, 074201
+	Phys. Rev. Accel. Beams 24, 083502
 
 
 # How to use:
