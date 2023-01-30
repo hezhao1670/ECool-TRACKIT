@@ -11,7 +11,7 @@ electron cooling simulation (Multi-particles tracking code)
 4. cooling section: several sections for hadron beam evolution (e-beam no change)  
 5. add magnetized cooling force (Parkhomchuk, uniform e-beam) and energy/frequency tuning 
 6. multi-injection (iichoice=3)
-7 added various e-beam distribution uniform/elliptical/gaussian/hollw etc. 
+7. added various e-beam distribution: uniform/elliptical/gaussian/hollow etc. 
 		
 		
 # Publications:
