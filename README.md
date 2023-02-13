@@ -1,7 +1,7 @@
 Updated 2022/09-(ecoolm2h4 build)
 
 # ECool-TRACKIT 
-Electron Cooling Simulation (Multi-particles tracking code)<\br>
+Electron Cooling Simulation (Multi-particles tracking code)<br/>
 __Authors: He Zhao, Michael Blaskiewicz (BNL)__
 
 
