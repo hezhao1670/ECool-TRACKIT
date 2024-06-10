@@ -19,6 +19,8 @@ __Authors: HE ZHAO, MICHAEL BLASKIEWICZ (BNL)__
 # Publications:
 	Phys. Rev. Accel. Beams 23, 074201
 	Phys. Rev. Accel. Beams 24, 083502
+ 	Phys. Rev. Accel. Beams 26, 030101
+	Phys. Rev. Accel. Beams 27, 033501
 
 
 # How to use:
