@@ -8,12 +8,13 @@ __Authors: HE ZHAO, MICHAEL BLASKIEWICZ (BNL)__
 
 # Features: 
 1. basic betatron motion, synchrotron motion, chromaticity, etc..
-2. cooling: 3D non-magnetic cooling and dispersion
-3. IBS: B-M IBS model with vertical dispersion
-4. cooling section: several sections for hadron beam evolution (e-beam no change)  
-5. add magnetized cooling force (Parkhomchuk, uniform e-beam) and energy/frequency tuning 
-6. multi-injection (iichoice=3)
-7. added various e-beam distribution: uniform/elliptical/gaussian/hollow etc. 
+2. 3D non-magnetic cooling and dispersion
+3. B-M IBS model with vertical dispersion
+4. space charge, betatron coupling and detuning 
+5. cooling section: several sections for hadron beam evolution (e-beam no change)  
+6. magnetized cooling force (Parkhomchuk, uniform e-beam) and energy/frequency tuning 
+7. multi-injection (iichoice=3)
+8. various e-beam distributions: uniform/elliptical/gaussian/hollow etc. 
 		
 		
 # Publications:
